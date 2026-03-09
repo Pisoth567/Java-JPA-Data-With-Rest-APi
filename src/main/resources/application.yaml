@@ -1,0 +1,23 @@
+#spring.application.name=fswd-sbapp
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: fswd-sbapp
+  profiles:
+    active: dev
+server:
+  servlet:
+    context-path: /istad
