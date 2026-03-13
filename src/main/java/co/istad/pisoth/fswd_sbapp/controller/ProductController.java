@@ -3,6 +3,7 @@ package co.istad.pisoth.fswd_sbapp.controller;
 import co.istad.pisoth.fswd_sbapp.dto.CreateProductRequest;
 import co.istad.pisoth.fswd_sbapp.dto.ProductResponse;
 import co.istad.pisoth.fswd_sbapp.dto.UpdateProductRequest;
+import co.istad.pisoth.fswd_sbapp.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,13 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @Slf4j
 public class ProductController {
+
+    final private ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping
     public List<ProductResponse> getAllProduct(
             @RequestParam(required = false, defaultValue = "0") int pageNumber,
@@ -23,8 +31,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public void createNewProduct(@RequestBody CreateProductRequest createProductRequest){
+    public ProductResponse createNewProduct(@RequestBody CreateProductRequest createProductRequest){
         log.info("createNewProduct: {}", createProductRequest);
+        productService.createNew(createProductRequest);
+        return null;
     }
 
     @PutMapping("/{code}")
