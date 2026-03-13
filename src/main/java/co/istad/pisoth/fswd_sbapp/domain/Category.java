@@ -23,6 +23,9 @@ public class Category {
     @Column(nullable = false)
     private Boolean isDelete;
 
+    // Relationship here
+    // MappedBy, tells hibernate category relationship
+    // already establish in product entity
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 }

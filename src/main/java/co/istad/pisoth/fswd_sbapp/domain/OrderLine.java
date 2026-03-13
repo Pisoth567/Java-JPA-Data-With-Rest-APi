@@ -5,27 +5,29 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.util.UUID;
 
-@Entity
-@Table(name = "order_items")
 @Getter
 @Setter
 @NoArgsConstructor
-public class OrderItem {
+@Entity
+@Table(name = "order_lines")
+@IdClass(OrderLineId.class)
+public class OrderLine {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private UUID orderId;
+    @Id
+    private String productCode;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(nullable = false)
+    private Integer qty;
 
+    @Column(nullable = false)
+    private BigDecimal unitPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @Column(nullable = false)
+    private Float discount;
 
-    @Column(name = "order_data")
-    private Date order_date;
 }
