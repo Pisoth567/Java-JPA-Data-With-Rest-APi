@@ -4,7 +4,9 @@ import co.istad.pisoth.fswd_sbapp.dto.CreateProductRequest;
 import co.istad.pisoth.fswd_sbapp.dto.ProductResponse;
 import co.istad.pisoth.fswd_sbapp.dto.UpdateProductRequest;
 import co.istad.pisoth.fswd_sbapp.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.CacheRequest;
@@ -30,8 +32,10 @@ public class ProductController {
         return List.of();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public ProductResponse createNewProduct(@RequestBody CreateProductRequest createProductRequest){
+    public ProductResponse createNewProduct(
+            @Valid @RequestBody CreateProductRequest createProductRequest){
         log.info("createNewProduct: {}", createProductRequest);
         productService.createNew(createProductRequest);
         return null;
